@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GamerZone La Paz</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="main-layout">
+        <aside class="live-column">
+            <div class="phone-container">
+                <span class="live-indicator">LIVE</span>
+                <iframe src="https://www.youtube.com/embed/rNgIJCfQhhQ" width="100%" height="100%" frameborder="0"
+                    allowfullscreen style="border-radius: 20px;"></iframe>
+            </div>
+        </aside>
+
+        <main class="dashboard-column">
+            <header class="dashboard-header">
+                <h1>GamerZone La Paz</h1>
+                <button type="button" id="themeToggle" class="theme-toggle-btn">🌓</button>
+            </header>
+
+            <form id="ventaForm" novalidate>
+                <div class="form-row">
+                    <div class="field-container">
+                        <span class="field-error" id="errorUsuario"></span>
+                        <input type="text" id="usuario" placeholder="Usuario de TikTok, ej: @cliente"
+                            autocomplete="off">
+                    </div>
+                    <div class="field-container">
+                        <span class="field-error" id="errorProducto"></span>
+                        <input type="text" id="producto" placeholder="Producto" autocomplete="off">
+                    </div>
+                    <div class="field-container">
+                        <span class="field-error" id="errorDetalle"></span>
+                        <input type="text" id="detalle" placeholder="Comentario / Detalle del pedido"
+                            autocomplete="off">
+                    </div>
+                    <div class="field-container">
+                        <span class="field-error" id="errorPrecio"></span>
+                        <input type="number" id="precio" placeholder="Precio en Bs" step="0.01">
+                    </div>
+                </div>
+                <button type="submit" id="btnRegistrar" disabled>Registrar</button>
+            </form>
+
+            <div id="logOutput" class="terminal-log"></div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

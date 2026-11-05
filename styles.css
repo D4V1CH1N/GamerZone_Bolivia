@@ -1,0 +1,305 @@
+:root {
+    --bg-body: #06070a;
+    --bg-card: #0d1017;
+    --bg-input: #141724;
+    --border-color: #1a2236;
+    --text-primary: #e2e8f0;
+    --text-secondary: #5c6882;
+    --accent-green: #00ff88;
+    --accent-cyan: #00e5ff;
+    --accent-red: #ff3366;
+    --terminal-bg: #080a10;
+    --phone-bg: #0b0d14;
+    --btn-disabled-bg: #191c2b;
+    --btn-disabled-text: #525870;
+    --shadow-glow: rgba(0, 255, 136, 0.35);
+    --shadow-cyan: rgba(0, 229, 255, 0.1);
+}
+
+body.light-mode {
+    --bg-body: #f1f5f9;
+    --bg-card: #ffffff;
+    --bg-input: #f8fafc;
+    --border-color: #cbd5e1;
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --accent-green: #10b981;
+    --accent-cyan: #0284c7;
+    --accent-red: #ef4444;
+    --terminal-bg: #1e293b;
+    --phone-bg: #e2e8f0;
+    --btn-disabled-bg: #e2e8f0;
+    --btn-disabled-text: #94a3b8;
+    --shadow-glow: rgba(16, 185, 129, 0.3);
+    --shadow-cyan: rgba(2, 132, 199, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-primary);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.main-layout {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 32px;
+    width: 100%;
+    max-width: 1200px;
+    align-items: start;
+}
+
+.live-column {
+    display: flex;
+    justify-content: center;
+}
+
+.phone-container {
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    background-color: var(--phone-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 32px;
+    position: relative;
+    box-shadow: 0 0 25px var(--shadow-cyan), inset 0 0 15px rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.phone-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+.live-indicator {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background-color: #ff0050;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    animation: liveBlink 1s infinite alternate;
+    z-index: 10;
+    pointer-events: none;
+}
+
+@keyframes liveBlink {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.25;
+    }
+}
+
+.dashboard-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent-green);
+    text-shadow: 0 0 12px var(--shadow-glow);
+    transition: color 0.3s ease;
+}
+
+.theme-toggle-btn {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    line-height: 1;
+    transition: border-color 0.2s, box-shadow 0.2s, background-color 0.3s ease, color 0.3s ease;
+}
+
+.theme-toggle-btn:hover {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 10px var(--shadow-cyan);
+}
+
+#ventaForm {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 14px;
+    margin-top: 6px;
+}
+
+.field-container {
+    position: relative;
+    width: 100%;
+}
+
+.field-error {
+    position: absolute;
+    top: -18px;
+    right: 0;
+    color: var(--accent-red);
+    font-size: 0.75rem;
+    font-weight: 600;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+input {
+    width: 100%;
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    padding: 12px 14px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s, background-color 0.3s ease, color 0.3s ease;
+}
+
+input::placeholder {
+    color: var(--text-secondary);
+}
+
+input:focus {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 10px var(--shadow-cyan);
+}
+
+#btnRegistrar {
+    background: linear-gradient(135deg, var(--accent-green) 0%, #00c76b 100%);
+    color: #07080c;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.2s, background 0.2s, color 0.2s;
+}
+
+#btnRegistrar:hover:not(:disabled) {
+    box-shadow: 0 0 18px var(--shadow-glow);
+}
+
+#btnRegistrar:active:not(:disabled) {
+    transform: scale(0.99);
+}
+
+#btnRegistrar:disabled {
+    background: var(--btn-disabled-bg);
+    color: var(--btn-disabled-text);
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+    border: 1px solid var(--border-color);
+}
+
+#logOutput {
+    background-color: var(--terminal-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px;
+    min-height: 220px;
+    max-height: 320px;
+    overflow-y: auto;
+    font-family: 'Consolas', 'Courier New', Courier, monospace;
+    font-size: 0.9rem;
+    color: var(--accent-cyan);
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+#logOutput div {
+    padding: 6px 10px;
+    background-color: rgba(0, 229, 255, 0.04);
+    border-left: 3px solid var(--accent-green);
+    border-radius: 4px;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+#logOutput div b {
+    color: var(--accent-green);
+    font-weight: 700;
+}
+
+#logOutput::-webkit-scrollbar {
+    width: 6px;
+}
+
+#logOutput::-webkit-scrollbar-track {
+    background: var(--terminal-bg);
+}
+
+#logOutput::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 3px;
+}
+
+#logOutput::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-cyan);
+}
+
+@media (max-width: 900px) {
+    .main-layout {
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
+
+    .phone-container {
+        width: 280px;
+    }
+
+    .dashboard-column {
+        width: 100%;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
