@@ -12,7 +12,7 @@ const errorDetalle = document.getElementById('errorDetalle');
 const errorPrecio = document.getElementById('errorPrecio');
 
 const PALABRAS_PROHIBIDAS = ['mierda', 'puta', 'puto', 'pendejo', 'imbecil', 'estupido', 'cabron'];
-const REGEX_SIN_SENTIDO = /(.)\1{3,}|(?:asd){2,}|(?:qwe){2,}|qwerty/i;
+const REGEX_BASURA = /(.)\1{3,}|(?:asd|dsa|qwe|ewq|zxc|cxz|asdf|fdsa|zxcv){2,}|[bcdfghjklmnpqrstvwxyz]{5,}/i;
 
 themeToggle.addEventListener('click', () => {
     document.body.classList.toggle('light-mode');
@@ -23,6 +23,13 @@ function logEvent(tipo, mensaje) {
     const item = document.createElement('div');
     item.innerHTML = `[${hora}] <b>${tipo}</b>: ${mensaje}`;
     document.getElementById('logOutput').prepend(item);
+}
+
+function esTextoBasura(texto) {
+    const textoNorm = texto.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const contieneGroseria = PALABRAS_PROHIBIDAS.some(p => textoNorm.includes(p));
+    const esPatronBasura = REGEX_BASURA.test(textoNorm);
+    return contieneGroseria || esPatronBasura;
 }
 
 function validarUsuario() {
@@ -45,6 +52,10 @@ function validarProducto() {
         errorProducto.textContent = 'Campo requerido';
         return false;
     }
+    if (esTextoBasura(val)) {
+        errorProducto.textContent = 'Texto inválido o sin sentido';
+        return false;
+    }
     errorProducto.textContent = '';
     return true;
 }
@@ -55,12 +66,8 @@ function validarDetalle() {
         errorDetalle.textContent = 'Campo requerido';
         return false;
     }
-    const textoNorm = val.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-    const contieneGroseria = PALABRAS_PROHIBIDAS.some(p => textoNorm.includes(p));
-    const esSinSentido = REGEX_SIN_SENTIDO.test(textoNorm);
-
-    if (contieneGroseria || esSinSentido) {
-        errorDetalle.textContent = 'Texto no válido';
+    if (esTextoBasura(val)) {
+        errorDetalle.textContent = 'Texto inválido o sin sentido';
         return false;
     }
     errorDetalle.textContent = '';
@@ -89,9 +96,8 @@ function verificarEstadoBoton() {
     const p = precioInput.value.trim();
 
     const uValido = u && u.startsWith('@');
-    const prValido = Boolean(pr);
-    const dNorm = d.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-    const dValido = d && !PALABRAS_PROHIBIDAS.some(w => dNorm.includes(w)) && !REGEX_SIN_SENTIDO.test(dNorm);
+    const prValido = pr && !esTextoBasura(pr);
+    const dValido = d && !esTextoBasura(d);
     const numP = parseFloat(p);
     const pValido = p && !isNaN(numP) && numP > 0;
 
